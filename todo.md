@@ -1,0 +1,54 @@
+# Firebase Backend Integration Checklist
+
+- [x] Confirm the Firebase project and add its public web configuration.
+- [x] Prepare Firebase Authentication, Cloud Firestore, and Cloud Functions source for Adnify.
+- [x] Keep Firebase configuration public-only and exclude the supplied password from the repository.
+- [x] Add trusted server-side administrator-role assignment for the specified administrator email.
+- [x] Add Firestore security rules and role-based access controls for FDE, Business, and Admin users.
+- [x] Validate the local client and Cloud Functions builds, scan source files for the supplied password, and document deployment and credential setup steps.
+- [x] Create the Firebase Authentication account for the specified administrator email without writing its password to disk.
+- [ ] Deploy Firebase Functions and rules, then confirm the trusted `ADMIN` custom claim is active.
+- [ ] Use authorised Firebase project access to run the prepared deployment and refresh the administrator token after the custom claim is assigned.
+- [x] Add a credential-safe deployment helper that uses the Firebase project ID without storing a service-account file in the repository.
+- [x] Add role-aware navigation and post-login routing for Business and FDE accounts.
+- [x] Build a Business dashboard that creates, saves, and lists the signed-in Business user's problems.
+- [x] Build an FDE dashboard that displays all published Business problems with filtering.
+- [x] Restrict problem writes to Business accounts and validate problem visibility for FDE accounts.
+- [x] Test the role-specific interfaces, secure-route access states, client build, and Cloud Functions type checks.
+- [x] Define proposal status, private response fields, and a Business-only decision path.
+- [x] Add an FDE proposal form to each published Business problem.
+- [x] Add Business-side proposal review, acceptance, and decline actions.
+- [x] Secure proposal reads and writes so only the relevant FDE and Business can access them.
+- [x] Add FDE-side proposal status tracking, including accepted and declined connection-request outcomes.
+- [x] Test secure route access states, proposal workflow compilation, production build, and browser runtime behaviour across both workspaces.
+- [x] Define locked-contact records, connection status transitions, manual payment review states, and administrator-controlled fee settings.
+- [x] Create connection records from accepted proposals and show FDE business invitations.
+- [x] Add fee-payment request and payment-submission interfaces for both Businesses and FDEs.
+- [x] Unlock contact information only after both parties’ payments are verified by an administrator.
+- [x] Build an administrator control center for users, problem moderation, fees, payment verification, connections, disputes, reports, and account blocks.
+- [x] Restrict sensitive reads, writes, and status transitions with Firestore rules and trusted Firebase Functions.
+- [x] Validate protected route presentation, responsive gateway layouts, client build, and Firebase Functions type checks for the connection-fee and administrator workflow.
+- [x] Replace the trusted Firebase administrator email in server-side role assignment and administrator setup documentation.
+- [x] Create the replacement Firebase Authentication administrator account without saving its password in the project.
+- [x] Verify that the replacement password is absent from committed source and document token refresh after Functions deployment.
+- [ ] Confirm whether the new administrator email has received a deployed Firebase `ADMIN` custom claim and role document.
+- [x] Verify the protected `/admin` route renders its administrator-specific access state without layout errors.
+- [x] Identify the exact deployment and token-refresh action needed for the replacement administrator account to access `/admin`.
+- [x] Make the login dialog display an explicit admin-activation error instead of silently returning to the homepage.
+- [x] Diagnose the current login issue: the replacement Firebase Authentication account was created outside the registration flow, so it has no `users/{uid}` record, no `roles/{uid}` record, and no deployed `ADMIN` custom claim.
+- [x] Add a trusted Firebase callable that activates the designated administrator account after authenticated sign-in.
+- [ ] Deploy the callable and Firebase role function with authorised project credentials, then refresh the administrator token.
+- [x] Verify the client and production build after making admin bootstrap failures explicit.
+- [ ] Verify that the administrator can enter `/admin` and exercise Firebase-enforced control-center actions.
+- [x] Stage the uploaded Firebase service-account credential outside the project for one-time deployment use.
+- [ ] Deploy the current Firebase Functions, Firestore rules, and Storage rules to `adnify-f033d`.
+- [ ] Activate the designated administrator account through the deployed trusted callable and refresh its role token.
+- [ ] Verify `/admin` access, then remove the staged service-account credential.
+- [x] Create public FDE directory records at registration and show them exclusively in the Business workspace.
+
+- [ ] Audit the current admin route, Firebase claim bootstrap, and connection unlock rules.
+- [ ] Ensure designated admin login routes to `/admin` only after the trusted claim is active.
+- [ ] Ensure the admin dashboard exposes verified payment, fee, moderation, connection, refund, dispute, report, and block controls.
+- [ ] Ensure both Business and FDE contacts remain locked until both payments are verified, then reveal only to the matched participants.
+- [ ] Validate the complete admin and bilateral contact-unlock flow.
+- [ ] Deploy the trusted Firebase Functions and rules with authorised IAM access.
